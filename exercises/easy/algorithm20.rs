@@ -1,17 +1,27 @@
 /*
     Sum of Two Integers
-    Given two integers, calculate their sum without using the `+` operator. 
+    Given two integers, calculate their sum without using the `+` operator.
     You need to implement the function `get_sum(a: i32, b: i32) -> i32`.
     The function should return the sum of the two integers `a` and `b`.
 
     Hint: You can solve this problem using bitwise operations.
 */
 
-use std::fmt::{self, Display, Formatter};
+use std::{
+    fmt::{self, Display, Formatter},
+    ops::{BitAndAssign, BitXor},
+};
 
 pub fn get_sum(a: i32, b: i32) -> i32 {
-    // TODO: Implement the logic to calculate the sum of two integers without using `+`
-    0 // Placeholder return value
+    let mut xor = a.bitxor(b);
+    // 进位
+    let mut carry = (a & b) << 1;
+    while carry != 0 {
+        let temp = xor;
+        xor = xor.bitxor(carry);
+        carry = (temp & carry) << 1;
+    }
+    xor
 }
 
 #[cfg(test)]

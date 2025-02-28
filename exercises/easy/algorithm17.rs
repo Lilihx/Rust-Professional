@@ -9,11 +9,25 @@
     Hint: You can solve this problem using sorting, hash sets, or the two-pointer technique.
 */
 
-use std::fmt::{self, Display, Formatter};
+use std::{
+    collections::HashMap,
+    fmt::{self, Display, Formatter},
+};
 
 pub fn intersection(nums1: Vec<i32>, nums2: Vec<i32>) -> Vec<i32> {
-    // TODO: Implement the logic to find the intersection of two arrays
-    Vec::new() // Placeholder return value
+    let mut intersection = Vec::new();
+    let mut exist = HashMap::new();
+    for num in nums2 {
+        exist.insert(num, ());
+    }
+    for num in nums1 {
+        if let Some(_) = exist.get(&num) {
+            intersection.push(num);
+            exist.remove(&num);
+        }
+    }
+
+    intersection
 }
 
 #[cfg(test)]
