@@ -11,8 +11,6 @@
     Hint: Consider normalizing the strings by removing non-alphabetical characters and converting to lowercase before checking.
 */
 
-use std::fmt::{self, Display, Formatter};
-
 pub fn are_anagrams(s1: String, s2: String) -> bool {
     let mut s1: Vec<char> = s1
         .to_lowercase()
@@ -20,7 +18,6 @@ pub fn are_anagrams(s1: String, s2: String) -> bool {
         .chars()
         .collect();
     s1.sort();
-    let s1 = String::from_iter(s1);
 
     let mut s2: Vec<char> = s2
         .to_lowercase()
@@ -28,8 +25,16 @@ pub fn are_anagrams(s1: String, s2: String) -> bool {
         .chars()
         .collect();
     s2.sort();
-    let s2 = String::from_iter(s2);
-    s1 == s2
+
+    if s1.len() != s2.len() {
+        return false;
+    }
+    for i in 0..s1.len() {
+        if s1[i] != s2[i] {
+            return false;
+        }
+    }
+    return true;
 }
 
 #[cfg(test)]
